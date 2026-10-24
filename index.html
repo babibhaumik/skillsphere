@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSphere AI — Primary Analytical Engine</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#006d4a",
+            "surface": "#0f131d",
+            "inverse-primary": "#006970",
+            "outline": "#849495",
+            "tertiary-container": "#65f2b5",
+            "on-secondary-fixed-variant": "#5516be",
+            "on-primary-fixed-variant": "#004f54",
+            "secondary": "#d0bcff",
+            "primary-fixed-dim": "#00dbe9",
+            "surface-container-lowest": "#0a0e18",
+            "secondary-container": "#571bc1",
+            "on-error-container": "#ffdad6",
+            "error-container": "#93000a",
+            "surface-container-highest": "#313540",
+            "surface-container-low": "#171b26",
+            "on-surface": "#dfe2f1",
+            "tertiary-fixed": "#6ffbbe",
+            "on-primary-fixed": "#002022",
+            "inverse-surface": "#dfe2f1",
+            "on-secondary-container": "#c4abff",
+            "surface-container": "#1c1f2a",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-secondary": "#3c0091",
+            "on-secondary-fixed": "#23005c",
+            "secondary-fixed": "#e9ddff",
+            "surface-tint": "#00dbe9",
+            "tertiary": "#d8ffe7",
+            "primary": "#dbfcff",
+            "surface-bright": "#353944",
+            "on-primary-container": "#006970",
+            "primary-fixed": "#7df4ff",
+            "on-primary": "#00363a",
+            "on-error": "#690005",
+            "on-tertiary-fixed": "#002113",
+            "tertiary-fixed-dim": "#4edea3",
+            "outline-variant": "#3b494b",
+            "on-background": "#dfe2f1",
+            "on-tertiary": "#003824",
+            "primary-container": "#00f0ff",
+            "error": "#ffb4ab",
+            "on-surface-variant": "#b9cacb",
+            "background": "#0f131d",
+            "surface-variant": "#313540",
+            "secondary-fixed-dim": "#d0bcff",
+            "inverse-on-surface": "#2c303b",
+            "surface-container-high": "#262a35",
+            "surface-dim": "#0f131d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-desktop": "2.5rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "gutter-desktop": "1.75rem",
+            "space-sm": "0.5rem",
+            "gutter": "1.25rem",
+            "margin": "1rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "label-code": ["JetBrains Mono"],
+            "body-md": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "metric-stat": ["JetBrains Mono"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "badge-caption": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-code": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "metric-stat": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "badge-caption": ["10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen selection:bg-primary-container selection:text-surface-container-lowest overflow-x-hidden">
+<!-- TOP APP BAR -->
+<header class="w-full px-6 h-16 flex items-center justify-between border-b border-outline-variant/30 bg-surface-container-lowest/80 dark:bg-surface-container-lowest/80 backdrop-blur-md shadow-[0_4px_24px_-4px_rgba(0,0,0,0.5)] fixed top-0 left-0 right-0 z-50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-container via-secondary to-secondary-container flex items-center justify-center p-[1px] shadow-[0_0_16px_rgba(0,240,255,0.3)]">
+<div class="w-full h-full bg-surface-container-lowest rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="memory">memory</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm font-bold tracking-tight text-primary-container dark:text-primary-container flex items-center gap-2">
+            SkillSphere AI
+          </span>
+<span class="font-label-code text-badge-caption text-on-surface-variant flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+            System Kernel: Online v2.4 (FastAPI + LLM Stream)
+          </span>
+</div>
+</div>
+<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]" data-icon="terminal">terminal</span>
+<select class="bg-transparent font-label-code text-label-code text-primary-container focus:outline-none cursor-pointer border-none p-0 pr-4">
+<option class="bg-surface-container-high text-on-surface">Target: Machine Learning Engineer [L4/Mid-Senior]</option>
+<option class="bg-surface-container-high text-on-surface">Target: Senior MLOps Architect [L5]</option>
+<option class="bg-surface-container-high text-on-surface">Target: Applied AI Researcher [L4]</option>
+</select>
+</div>
+</div>
+<!-- Center Navigation Links -->
+<nav class="hidden xl:flex items-center gap-8">
+<a class="text-primary-container dark:text-primary-container font-medium border-b-2 border-primary-container pb-1 text-label-code font-label-code transition-colors flex items-center gap-1.5" href="#diagnostic">
+<span class="material-symbols-outlined text-[16px]" data-icon="speed">speed</span>
+        Diagnostic Hub
+      </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors text-label-code font-label-code" href="#benchmarks">
+        Benchmarks
+      </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface transition-colors text-label-code font-label-code" href="#telemetry">
+        Telemetry
+      </a>
+</nav>
+<!-- Trailing Action Controls -->
+<div class="flex items-center gap-3">
+<!-- Search Input -->
+<div class="relative hidden sm:flex items-center">
+<span class="material-symbols-outlined text-outline absolute left-3 text-[18px]" data-icon="search">search</span>
+<input class="bg-surface-container-low border border-outline-variant/40 rounded-lg pl-9 pr-12 py-1.5 text-body-sm font-body-sm text-on-surface placeholder-outline focus:outline-none focus:border-primary-container w-64 transition-all" placeholder="Query models, skills, embeddings..." type="text"/>
+<span class="absolute right-2 font-label-code text-badge-caption text-outline-variant border border-outline-variant/40 px-1.5 py-0.5 rounded">⌘K</span>
+</div>
+<!-- Quick Action Buttons -->
+<button class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/50 bg-surface-container-high/40 hover:bg-surface-container hover:border-primary-container/40 text-on-surface font-label-code text-label-code transition-all">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="sync_alt">sync_alt</span>
+<span>Role Switcher</span>
+</button>
+<button class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-primary-container hover:brightness-110 active:scale-[0.98] text-surface-container-lowest font-headline-sm text-label-code font-semibold shadow-[0_0_16px_rgba(0,240,255,0.25)] transition-all">
+<span class="material-symbols-outlined text-[16px]" data-icon="play_arrow">play_arrow</span>
+<span>Run Simulation</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/40 mx-1"></div>
+<!-- Icon Actions -->
+<button class="p-2 rounded-lg text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high/50 transition-colors relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_#00f0ff]"></span>
+</button>
+<!-- Profile Avatar -->
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<div class="w-8 h-8 rounded-full border border-primary-container/40 bg-surface-container p-[1px] relative">
+<img class="w-full h-full object-cover rounded-full" data-alt="Cyberpunk high-tech portrait of an engineering lead illuminated by deep blue and electric cyan directional terminal lighting in a modern dark room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMPoeN78WrhCPbzYAlMbdMjyyEjvelebqi2zKJPI8A4kEJlOS6QQ-Yk-4u2B9nMIwkTWN2de2_MvvYoiKaX-7ZukE8FcKvOoNht6jipyUkvlLqOND8ynqwYQbvGS2F6JAbOirqXYrKmeRDI1NekSAF6xQf6kGj_wC4nKyl8DWvXmd4SsKJjrOUbGzOJsHQ8sed4M3GJd3ofB2Mx5i1qr1s4WYJFmT0R9p_QaBGDhWwJNvzCVH9MQRYXQ"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary-container border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+</div>
+</div>
+</header>
+<!-- WORKSPACE WRAPPER -->
+<div class="pt-16 flex min-h-screen">
+<!-- LEFT ANALYTICAL RAIL (SideNavBar) -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 z-40 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant/30 flex flex-col justify-between p-4 shadow-[4px_0_24px_-4px_rgba(0,0,0,0.4)]">
+<div class="flex flex-col gap-6">
+<!-- System Title Meta -->
+<div class="px-3 pt-2">
+<div class="flex items-center gap-2 text-headline-sm font-headline-sm font-bold text-primary dark:text-primary">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="memory">memory</span>
+            SkillSphere AI
+          </div>
+<p class="font-label-code text-badge-caption text-outline mt-1">v2.4.0-prod // MLOps-Kernel</p>
+</div>
+<!-- Rail Navigation List -->
+<nav class="flex flex-col gap-1.5">
+<!-- Active Tab: Resume Analyzer -->
+<a class="bg-surface-container-high/80 dark:bg-surface-container-high/80 text-primary-container dark:text-primary-container border-r-2 border-primary-container shadow-[0_0_16px_rgba(0,240,255,0.15)] flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium font-label-code text-label-code transition-all" href="#analyzer">
+<span class="material-symbols-outlined text-[20px] text-primary-container" data-icon="document_scanner">document_scanner</span>
+            Resume Analyzer
+          </a>
+<!-- Active Dual Link: Skill Gap Matrix -->
+<a class="text-on-surface dark:text-on-surface bg-surface-container/60 hover:bg-surface-container-high/70 flex items-center gap-3 px-4 py-2.5 rounded-lg border-l-2 border-secondary font-label-code text-label-code transition-all" href="#gap-matrix">
+<span class="material-symbols-outlined text-[20px] text-secondary" data-icon="radar">radar</span>
+            Skill Gap Matrix
+          </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container/50 flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all font-label-code text-label-code" href="#roadmaps">
+<span class="material-symbols-outlined text-[20px]" data-icon="alt_route">alt_route</span>
+            Career Roadmaps
+          </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container/50 flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all font-label-code text-label-code" href="#interview">
+<span class="material-symbols-outlined text-[20px]" data-icon="record_voice_over">record_voice_over</span>
+            Interview Simulator
+          </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container/50 flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all font-label-code text-label-code" href="#architecture">
+<span class="material-symbols-outlined text-[20px]" data-icon="memory">memory</span>
+            System Architecture
+          </a>
+</nav>
+<!-- CTA Upload Pipeline -->
+<div class="px-2">
+<button class="w-full py-2.5 px-3 rounded-lg border border-primary-container/40 bg-surface-container-high/50 hover:bg-primary-container/10 text-primary-container hover:border-primary-container font-label-code text-label-code flex items-center justify-center gap-2 shadow-[0_0_12px_rgba(0,240,255,0.1)] transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="cloud_upload">cloud_upload</span>
+            Upload Pipeline
+          </button>
+</div>
+</div>
+<!-- Bottom System Health Telemetry Widget -->
+<div class="flex flex-col gap-3 pt-3 border-t border-outline-variant/30">
+<!-- NLP Health Widget -->
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-code text-badge-caption text-outline">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span>
+              PyNLP Extraction API
+            </span>
+<span class="text-tertiary-container font-semibold">99.98%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[99%]"></div>
+</div>
+<div class="flex justify-between items-center text-badge-caption font-label-code text-on-surface-variant">
+<span>LLM Tokens</span>
+<span class="text-primary-container font-bold">14,290 / 50k</span>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="flex items-center justify-between px-2 pt-1 font-label-code text-badge-caption text-outline">
+<button class="flex items-center gap-1 hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[14px]" data-icon="monitor_heart">monitor_heart</span>
+            API Health
+          </button>
+<button class="flex items-center gap-1 hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[14px]" data-icon="tune">tune</span>
+            Settings
+          </button>
+</div>
+</div>
+</aside>
+<!-- PRIMARY DIAGNOSTIC CANVAS (Desktop Workspace) -->
+<main class="ml-64 flex-1 p-6 lg:p-8 max-w-[1600px] flex flex-col gap-6">
+<!-- SECTION A: HEADER BANNER / SESSION STATE -->
+<section class="relative rounded-xl p-6 bg-gradient-to-r from-surface-container-low via-surface-container to-surface-container-low border border-outline-variant/30 backdrop-blur-md overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+<!-- Ambient decorative glow -->
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -left-20 -bottom-20 w-72 h-72 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2.5">
+<span class="px-2.5 py-0.5 rounded-full font-label-code text-badge-caption bg-secondary-container/60 text-secondary border border-secondary/40 font-semibold uppercase tracking-wider">SEC_01 // RUNTIME DIAGNOSTIC</span>
+<span class="flex items-center gap-1.5 font-label-code text-badge-caption text-tertiary-container">
+<span class="w-2 h-2 rounded-full bg-tertiary-container shadow-[0_0_8px_#65f2b5]"></span>
+                LIVE SESSION #8492
+              </span>
+</div>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">AI Resume Intelligence &amp; Skill Gap Diagnostic</h1>
+<p class="font-body-md text-body-md text-on-surface-variant flex flex-wrap items-center gap-2">
+<span class="text-on-surface font-medium">Targeting:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant/50 text-primary-container font-label-code text-label-code">Machine Learning Engineer</span>
+<span class="text-outline">|</span>
+<span class="text-on-surface font-medium">Source:</span>
+<span class="font-label-code text-secondary text-label-code flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="description">description</span>
+                Alex_Chen_Resume_2025.pdf
+              </span>
+<span class="text-outline">|</span>
+<span class="text-outline text-body-sm font-label-code">Analyzed via Python NLP + Gemini LLM Core</span>
+</p>
+</div>
+<!-- Fast action pills -->
+<div class="flex flex-wrap items-center gap-2.5">
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-container-high/60 hover:bg-surface-container-high border border-outline-variant/40 hover:border-primary-container/40 text-on-surface font-label-code text-label-code transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px] text-tertiary-container" data-icon="sync">sync</span>
+              Sync with Live Job Description
+            </button>
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-container-high/60 hover:bg-surface-container-high border border-outline-variant/40 hover:border-secondary/50 text-on-surface font-label-code text-label-code transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="autorenew">autorenew</span>
+              Re-run Parser
+            </button>
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-container-high/60 hover:bg-surface-container-high border border-outline-variant/40 hover:border-primary-container/50 text-primary-container font-label-code text-label-code transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+              Download Annotated PDF
+            </button>
+</div>
+</div>
+</section>
+<!-- SECTION B: DUAL CORE INTELLIGENCE GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- ================= LEFT COLUMN: INGESTION & PIPELINE (40% width / 5 Cols) ================= -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- CARD 1: Resume Upload & Ingestion Pipeline -->
+<div class="rounded-xl p-5 bg-surface-container-low/70 border border-outline-variant/30 backdrop-blur-md flex flex-col gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="cloud_done">cloud_done</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Ingestion &amp; Extraction Pipeline</h2>
+</div>
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-tertiary-container/10 border border-tertiary-container/30 text-tertiary-container">PARSED 420ms</span>
+</div>
+<!-- Uploaded File State Box -->
+<div class="flex items-center justify-between p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/40 hover:border-primary-container/40 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-error-container/30 border border-error/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[22px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div>
+<div class="font-label-code text-body-md text-on-surface font-medium">Alex_Chen_ML_Resume.pdf</div>
+<div class="font-label-code text-badge-caption text-outline">1.8 MB • PyPDF + SpaCy NLP v3.7</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-code text-badge-caption text-tertiary-container bg-surface-container-high px-2 py-1 rounded border border-tertiary-container/20">Verified OCR</span>
+</div>
+</div>
+<!-- NLP Extraction Summary Grid -->
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3 rounded-lg bg-surface-container/60 border border-outline-variant/20 flex flex-col gap-1">
+<div class="font-label-code text-badge-caption text-outline uppercase tracking-wider">Skills Extracted</div>
+<div class="text-metric-stat font-metric-stat text-primary-container">14 <span class="text-body-sm font-body-sm text-outline">verified</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Core ML, System, Data</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container/60 border border-outline-variant/20 flex flex-col gap-1">
+<div class="font-label-code text-badge-caption text-outline uppercase tracking-wider">Experience Units</div>
+<div class="text-metric-stat font-metric-stat text-secondary">3 <span class="text-body-sm font-body-sm text-outline">Projects</span></div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">1 Enterprise AI Internship</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container/40 border border-outline-variant/20 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="school">school</span>
+<span class="font-body-sm text-body-sm text-on-surface">Education Credentials:</span>
+</div>
+<span class="font-label-code text-label-code text-on-surface font-medium bg-surface-container-high px-2 py-0.5 rounded border border-outline-variant/40">B.S. Computer Science (2024)</span>
+</div>
+<!-- Job Description Comparer Box (Collapsible Style) -->
+<div class="rounded-lg border border-outline-variant/40 bg-surface-container-lowest/60 overflow-hidden">
+<div class="p-3 bg-surface-container-high/40 flex items-center justify-between cursor-pointer">
+<div class="flex items-center gap-2 font-label-code text-label-code text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary-container" data-icon="compare_arrows">compare_arrows</span>
+<span>Target Role Alignment Criteria</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[16px]" data-icon="expand_more">expand_more</span>
+</div>
+<div class="p-3.5 flex flex-col gap-2.5 text-body-sm text-on-surface-variant font-body-sm">
+<p class="italic text-outline">
+                  "Build production LLM pipelines, distributed model training, PyTorch, Kubernetes, Vector DBs (Milvus/Pinecone)."
+                </p>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-tertiary-container/10 border border-tertiary-container/30 text-tertiary-container">✓ PyTorch Matched</span>
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-tertiary-container/10 border border-tertiary-container/30 text-tertiary-container">✓ Python Matched</span>
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-error-container/20 border border-error/40 text-error">✕ Ray / DeepSpeed Missing</span>
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-error-container/20 border border-error/40 text-error">✕ K8s Orchestration Partial</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 2: Technical Architecture & System Pipeline Badge -->
+<div class="rounded-xl p-5 bg-surface-container-low/70 border border-outline-variant/30 backdrop-blur-md flex flex-col gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="hub">hub</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">SkillSphere LLM &amp; NLP Topology</h2>
+</div>
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-secondary-container/30 text-secondary border border-secondary/30">KERNEL FLOW</span>
+</div>
+<!-- Pipeline Flow Diagram -->
+<div class="p-4 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/40 flex flex-col gap-3 font-label-code text-label-code">
+<div class="flex items-center justify-between text-badge-caption text-outline">
+<span>INSPECTION PIPELINE</span>
+<span class="text-primary-container">LATENCY: 420MS</span>
+</div>
+<!-- Flow Nodes -->
+<div class="flex flex-col gap-2 relative">
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high/40 border border-outline-variant/30">
+<span class="text-primary-container flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                    FastAPI Endpoint
+                  </span>
+<span class="text-badge-caption text-outline">Async Handler</span>
+</div>
+<div class="w-full flex justify-center text-outline-variant py-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container/60" data-icon="arrow_downward">arrow_downward</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high/40 border border-outline-variant/30">
+<span class="text-secondary flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                    LangChain NLP Chunking
+                  </span>
+<span class="text-badge-caption text-outline">SpaCy Engine</span>
+</div>
+<div class="w-full flex justify-center text-outline-variant py-0.5">
+<span class="material-symbols-outlined text-[16px] text-secondary/60" data-icon="arrow_downward">arrow_downward</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high/40 border border-outline-variant/30">
+<span class="text-tertiary-container flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+                    Vector Embedding Matcher
+                  </span>
+<span class="text-badge-caption text-outline">FAISS Index</span>
+</div>
+<div class="w-full flex justify-center text-outline-variant py-0.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container/60" data-icon="arrow_downward">arrow_downward</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-high/40 border border-primary-container/40 shadow-[0_0_12px_rgba(0,240,255,0.1)]">
+<span class="text-primary-container font-semibold flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                    LLM Evaluation Engine
+                  </span>
+<span class="text-badge-caption text-primary-container">Gemini 1.5 Pro</span>
+</div>
+</div>
+</div>
+<!-- Technology Stack Badges -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="font-label-code text-badge-caption text-outline uppercase tracking-wider">Engine Dependencies</span>
+<div class="flex flex-wrap gap-2">
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/40 text-on-surface">Python 3.11</span>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/40 text-primary-container">PyTorch 2.3</span>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/40 text-on-surface">FastAPI</span>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/40 text-secondary">FAISS GPU</span>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/40 text-on-surface">Docker</span>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/40 text-on-surface">React 18</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT COLUMN: DIAGNOSTIC & GAP ANALYSIS (60% width / 7 Cols) ================= -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- CARD 3: Match Score & Diagnostic Hub (Hero Metric) -->
+<div class="rounded-xl p-6 bg-surface-container-low/70 border border-outline-variant/30 backdrop-blur-md flex flex-col gap-6 shadow-[0_4px_24px_rgba(0,0,0,0.35)] relative overflow-hidden">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="analytics">analytics</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Diagnostic Hub &amp; Role Readiness</h2>
+</div>
+<span class="font-label-code text-badge-caption text-outline">SEC_02 // BENCHMARK L4-MLE</span>
+</div>
+<!-- Hero Circular / Radial Score Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+<!-- Radial Gauge Container -->
+<div class="md:col-span-5 flex flex-col items-center justify-center p-4 relative">
+<div class="relative w-44 h-44 flex items-center justify-center">
+<!-- SVG Concentric Gauge -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 120 120">
+<circle cx="60" cy="60" fill="transparent" r="50" stroke="#1c1f2a" stroke-width="10"></circle>
+<!-- Background subtle violet ring -->
+<circle cx="60" cy="60" fill="transparent" r="50" stroke="#571bc1" stroke-opacity="0.3" stroke-width="10"></circle>
+<!-- Animated Gradient Gauge (81%) -->
+<circle cx="60" cy="60" fill="transparent" r="50" stroke="url(#cyanVioletGrad)" stroke-dasharray="314.159" stroke-dashoffset="59.69" stroke-linecap="round" stroke-width="10"></circle>
+<defs>
+<lineargradient id="cyanVioletGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00f0ff"></stop>
+<stop offset="100%" stop-color="#8b5cf6"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-metric-stat font-metric-stat text-primary-container text-4xl font-bold tracking-tight">81%</span>
+<span class="font-label-code text-badge-caption text-outline uppercase tracking-wider">Readiness</span>
+</div>
+</div>
+<div class="mt-2 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container/10 border border-primary-container/30 text-primary-container font-label-code text-label-code font-semibold">
+                    Strong Candidate
+                  </span>
+<p class="font-body-sm text-body-sm text-outline mt-1">With 3 addressable critical gaps</p>
+</div>
+</div>
+<!-- Secondary Diagnostic Metrics (4 Mini Meters) -->
+<div class="md:col-span-7 grid grid-cols-2 gap-3.5">
+<!-- Metric 1 -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-code text-badge-caption text-outline">
+<span>Keyword Overlap</span>
+<span class="text-primary-container font-bold">88%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[88%] shadow-[0_0_8px_#00f0ff]"></div>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">High semantic alignment</span>
+</div>
+<!-- Metric 2 -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-code text-badge-caption text-outline">
+<span>Experience Depth</span>
+<span class="text-secondary font-bold">74%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[74%] shadow-[0_0_8px_#d0bcff]"></div>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Junior-to-Mid scale</span>
+</div>
+<!-- Metric 3 -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-code text-badge-caption text-outline">
+<span>Production Readiness</span>
+<span class="text-tertiary-fixed-dim font-bold">68%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim w-[68%]"></div>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Lacks distributed scale</span>
+</div>
+<!-- Metric 4 -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-code text-badge-caption text-outline">
+<span>ATS Compatibility</span>
+<span class="text-tertiary-container font-bold">96%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[96%] shadow-[0_0_8px_#65f2b5]"></div>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Flawless standard schema</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 4: Intelligent Skill Gap Matrix (ML Engineer Benchmark) -->
+<div class="rounded-xl p-6 bg-surface-container-low/70 border border-outline-variant/30 backdrop-blur-md flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.35)]" id="gap-matrix">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]" data-icon="radar">radar</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Skill Gap Matrix &amp; Verified Competencies</h2>
+</div>
+<span class="font-label-code text-badge-caption text-outline">L4 BENCHMARK EVAL</span>
+</div>
+<!-- Group 1: Mastered / Verified Skills -->
+<div class="flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code text-label-code text-tertiary-container flex items-center gap-2 font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+                  Mastered / Verified Skills (Resume Backed)
+                </span>
+<span class="font-label-code text-badge-caption text-outline">5 CORE COMPETENCIES</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+<!-- Skill Chip 1 -->
+<div class="p-2.5 rounded-lg bg-surface-container-lowest/90 border border-primary-container/40 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-code text-label-code">
+<span class="text-primary-container font-semibold">Python</span>
+<span class="text-on-surface">95%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[95%]"></div>
+</div>
+</div>
+<!-- Skill Chip 2 -->
+<div class="p-2.5 rounded-lg bg-surface-container-lowest/90 border border-primary-container/40 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-code text-label-code">
+<span class="text-primary-container font-semibold">PyTorch</span>
+<span class="text-on-surface">88%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[88%]"></div>
+</div>
+</div>
+<!-- Skill Chip 3 -->
+<div class="p-2.5 rounded-lg bg-surface-container-lowest/90 border border-primary-container/40 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-code text-label-code">
+<span class="text-primary-container font-semibold">Scikit-Learn</span>
+<span class="text-on-surface">90%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[90%]"></div>
+</div>
+</div>
+<!-- Skill Chip 4 -->
+<div class="p-2.5 rounded-lg bg-surface-container-lowest/90 border border-outline-variant/40 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-code text-label-code">
+<span class="text-on-surface font-semibold">Docker</span>
+<span class="text-on-surface-variant">80%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-outline w-[80%]"></div>
+</div>
+</div>
+<!-- Skill Chip 5 -->
+<div class="p-2.5 rounded-lg bg-surface-container-lowest/90 border border-outline-variant/40 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-code text-label-code">
+<span class="text-on-surface font-semibold">SQL / Postgres</span>
+<span class="text-on-surface-variant">85%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-outline w-[85%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Group 2: Missing / High-Impact Gaps -->
+<div class="flex flex-col gap-2.5 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-code text-label-code text-error flex items-center gap-2 font-semibold">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                  High-Impact Missing Gaps (Target Job Bottlenecks)
+                </span>
+<span class="font-label-code text-badge-caption text-error font-semibold">ACTION REQUIRED</span>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Gap Item 1 -->
+<div class="p-3 rounded-lg bg-error-container/10 border border-error/40 flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[20px]" data-icon="warning">warning</span>
+<div>
+<div class="font-label-code text-body-md text-on-surface font-semibold">Distributed Model Training (Ray / DeepSpeed)</div>
+<div class="text-body-sm font-body-sm text-outline">Target requires multi-GPU parallel fine-tuning; 0 mentions found in candidate projects.</div>
+</div>
+</div>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-error-container text-on-error-container border border-error font-bold whitespace-nowrap">CRITICAL [Priority 1]</span>
+</div>
+<!-- Gap Item 2 -->
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 border border-secondary/40 flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="cloud">cloud</span>
+<div>
+<div class="font-label-code text-body-md text-on-surface font-semibold">Kubernetes &amp; KServe Deployment</div>
+<div class="text-body-sm font-body-sm text-outline">Basic Docker present, but lacking container orchestration and production autoscaling.</div>
+</div>
+</div>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-secondary-container/60 text-secondary border border-secondary font-bold whitespace-nowrap">HIGH [Priority 2]</span>
+</div>
+<!-- Gap Item 3 -->
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/40 flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="database">database</span>
+<div>
+<div class="font-label-code text-body-md text-on-surface font-semibold">Vector Database &amp; RAG Optimization (Milvus / Pinecone)</div>
+<div class="text-body-sm font-body-sm text-outline">Target stack heavily prioritizes retrieval-augmented generation pipelines.</div>
+</div>
+</div>
+<span class="font-label-code text-badge-caption px-2.5 py-1 rounded bg-surface-container-high text-primary-container border border-primary-container/40 font-bold whitespace-nowrap">MEDIUM [Priority 3]</span>
+</div>
+</div>
+</div>
+<!-- Group 3: Theoretical Only / Needs Evidence -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="font-label-code text-badge-caption text-secondary flex items-center gap-1.5 uppercase tracking-wider font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Theoretical Only / Needs Quantified Project Evidence
+              </span>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-high/60 border border-secondary/30 text-secondary font-label-code text-label-code flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="lab_profile">lab_profile</span>
+                  MLflow Experiment Tracking (Mentioned once without metrics)
+                </span>
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-high/60 border border-secondary/30 text-secondary font-label-code text-label-code flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]" data-icon="deployed_code">deployed_code</span>
+                  CI/CD Pipelines for ML (No automated test coverage cited)
+                </span>
+</div>
+</div>
+</div>
+<!-- CARD 5: AI Resume Bullet Enhancements & Project Critique -->
+<div class="rounded-xl p-6 bg-surface-container-low/70 border border-outline-variant/30 backdrop-blur-md flex flex-col gap-5 shadow-[0_4px_24px_rgba(0,0,0,0.35)]">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="edit_note">edit_note</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">AI Bullet Optimization &amp; Project Critique</h2>
+</div>
+<span class="font-label-code text-badge-caption text-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded border border-tertiary-container/30">+24% IMPACT BOOST</span>
+</div>
+<!-- Interactive Rewrite Compare Box -->
+<div class="flex flex-col gap-3">
+<!-- Before Box -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/90 border border-outline-variant/30 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-code text-badge-caption text-outline">
+<span class="text-error font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="close">close</span>
+                    ORIGINAL RESUME BULLET
+                  </span>
+<span>ATS Score: 42/100</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant font-mono">
+                  "Worked on a sentiment analysis model using PyTorch."
+                </p>
+<div class="text-badge-caption font-label-code text-outline pt-1">Critique: Passive phrasing, absent metrics, no model architecture, unproven scale.</div>
+</div>
+<!-- After Box (Optimized) -->
+<div class="p-4 rounded-lg bg-surface-container-high/40 border border-primary-container/50 shadow-[0_0_16px_rgba(0,240,255,0.12)] flex flex-col gap-2 relative">
+<div class="flex items-center justify-between font-label-code text-badge-caption">
+<span class="text-primary-container font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="auto_awesome">auto_awesome</span>
+                    AI OPTIMIZED RECOMMENDATION
+                  </span>
+<span class="text-tertiary-container font-bold">ATS Score: 96/100</span>
+</div>
+<p class="font-body-md text-body-md text-primary font-medium">
+                  "Architected &amp; deployed a BERT-based sentiment classifier achieving 
+                  <span class="text-primary-container font-semibold underline decoration-primary-container">93.4% F1-score</span>; served via 
+                  <span class="text-primary-container font-semibold">FastAPI</span> handling 
+                  <span class="text-tertiary-container font-semibold">1,200 req/sec</span> with 
+                  <span class="text-secondary font-semibold">&lt;45ms p95 latency</span>."
+                </p>
+<!-- Impact Metrics Badges -->
+<div class="flex flex-wrap items-center gap-2 pt-2 border-t border-outline-variant/30 font-label-code text-badge-caption">
+<span class="px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/30 text-primary-container font-medium">Quantified Outcomes</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/10 border border-tertiary-container/30 text-tertiary-container font-medium">ATS Action Verbs</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container/40 border border-secondary/30 text-secondary font-medium">Latency &amp; Throughput SLA</span>
+<button class="ml-auto text-primary-container hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="content_copy">content_copy</span>
+                    Copy Bullet
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- CARD 6: AI-Generated Immediate Action Roadmap -->
+<div class="rounded-xl p-6 bg-gradient-to-br from-surface-container-low to-surface-container border border-outline-variant/40 backdrop-blur-md flex flex-col gap-5 shadow-[0_4px_28px_rgba(0,0,0,0.4)]" id="roadmaps">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="alt_route">alt_route</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Immediate Action Roadmap &amp; Gap Remediation</h2>
+</div>
+<span class="font-label-code text-badge-caption px-2 py-0.5 rounded bg-primary-container/10 text-primary-container border border-primary-container/30">PROJECT ACCELERATOR</span>
+</div>
+<!-- Steps List -->
+<div class="flex flex-col gap-3">
+<!-- Step 1 -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-primary-container/20 border border-primary-container text-primary-container font-label-code text-label-code font-bold flex items-center justify-center shrink-0">1</span>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Implement Distributed Fine-Tuning Project with DeepSpeed</span>
+<span class="font-label-code text-badge-caption text-tertiary-container font-bold">+9% Match Boost</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Build a Multi-GPU LLaMA-3 LoRA pipeline on RunPod/Modal, logging gradients to MLflow with zero-3 redundancy.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="p-3.5 rounded-lg bg-surface-container-lowest/80 border border-outline-variant/30 flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-secondary-container/40 border border-secondary text-secondary font-label-code text-label-code font-bold flex items-center justify-center shrink-0">2</span>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Containerize Model Serving with Kubernetes &amp; Helm Chart</span>
+<span class="font-label-code text-badge-caption text-secondary font-bold">+6% Match Boost</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Configure dynamic HPA (Horizontal Pod Autoscaler) on simulated GPU nodes with Prometheus scrape metrics.</p>
+</div>
+</div>
+</div>
+<!-- High Contrast Accent CTA -->
+<div class="pt-2">
+<button class="w-full py-3.5 px-6 rounded-lg bg-gradient-to-r from-primary-container via-primary-fixed to-primary-container hover:brightness-110 text-surface-container-lowest font-headline-sm font-bold text-headline-sm tracking-tight shadow-[0_0_24px_rgba(0,240,255,0.35)] flex items-center justify-center gap-3 active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined text-[22px]" data-icon="rocket_launch">rocket_launch</span>
+<span>Generate Custom 6-Week Learning Roadmap</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
